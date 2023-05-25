@@ -1,26 +1,34 @@
-# Proyecto Big Data con Spark
-Proyecto de Big Data con el objetivo de utilizar PySpark.
+# Big Data Project with Spark
 
-# Competencia de Kaggle
-Se le proporcionan datos históricos de ventas diarias. La tarea consiste en prever la cantidad total de productos vendidos en cada tienda para el conjunto de pruebas. Tenga en cuenta que la lista de tiendas y productos cambia ligeramente cada mes. Crear un modelo robusto que pueda manejar estas situaciones es parte del reto.
+Big Data project aiming to utilize PySpark.
 
-# ¿Para qué utilizamos PySpark?
-A lo largo del proyecto se utilizó PySpark para paralelizar todas las acciones correspondientes a la lectura de los datos, así como todo el preprocesamiento que se les aplicó antes de emplearlos en el entrenamiento de regresión lineal y Random Forest Regression que vienen también incluidos dentro de la paquetería de Spark para Python, para finalmente obtener una predicción haciendo uso del paralelizar los procesos posibles a lo largo de su desarrollo.
+# Kaggle Competition
 
-# ¿Qué hicimos?
-Predecir primero el nivel superior. (Por ejemplo: predecir primero las ventas totales)
-A continuación, calcule las ponderaciones que denotan la proporción de las ventas totales que hay que dar a la previsión del nivel básico (Ej:) la contribución de las ventas del artículo a las ventas totales
-Hay diferentes maneras de llegar a los "pesos".
- - **Proporciones medias históricas** - Media simple de la contribución del artículo a las ventas en los últimos meses
- - **Proporción de medias históricas** - La ponderación es la relación del valor medio de la serie inferior por el valor medio de la serie total (Ej: Ponderación(artículo1)= media(artículo1)/media(ventas_total))
- - **Proporciones previstas** - Predecir la proporción en el futuro utilizando los cambios en las proporciones pasadas
-Utilice estas ponderaciones para calcular las previsiones base y otros niveles.
+You are provided with historical daily sales data. The task is to predict the total quantity of products sold in each store for the test set. Note that the list of stores and products slightly changes every month. Creating a robust model that can handle these situations is part of the challenge.
 
-# Conclusiones
-El modelo de regresión Random Forest es mejor que el modelo de regresión lineal. Todavía hay muchas cosas que se pueden mejorar para obtener mejores predicciones, como por ejemplo
- - Utilizar un rango de valores atípicos más estricto (de recuento de ventas y precios de artículos),
- - Rellenar los datos que faltan con la media o la mediana del producto en todos los meses en lugar de sólo 0,
- - Diseñar más características basadas en el retardo y en la ventana móvil, Crear un modelo de conjunto utilizando muchos modelos de regresión diferentes,
- - Utilizar la biblioteca statsmodel para extraer la tendencia y la estacionalidad más precisas de las series temporales para utilizarlas como características,
- - Usar un algoritmo de ajuste de hiperparámetros, PySpark sólo soporta K-Fold Cross Validation, que no es adecuado para problemas de previsión de series temporales,
- - Utilizar una red neuronal recurrente como LSTM en lugar de convertir este conjunto de datos en un problema de regresión.
+# Why do we use PySpark?
+
+Throughout the project, PySpark was used to parallelize all the actions related to data reading, as well as all the preprocessing applied to them before using them in training linear regression and Random Forest Regression models, which are also included in the Spark package for Python. Finally, the prediction is obtained by parallelizing the possible processes throughout its development.
+
+# What did we do?
+
+First, predict the top-level. (For example, predict the total sales)
+Next, calculate weights denoting the proportion of total sales to be allocated to the bottom-level forecast (e.g., the contribution of item sales to total sales).
+There are different ways to obtain the "weights."
+
+    Historical Mean Ratios - Simple average of the item's contribution to sales in the past months.
+    Mean Ratio Ratios - The weight is the ratio of the mean value of the lower series to the mean value of the total series (e.g., Weight(item1) = mean(item1) / mean(total_sales)).
+    Forecasted Ratios - Predict the ratio in the future using changes in past ratios.
+    Use these weights to calculate the base forecasts and other levels.
+
+# Conclusions
+
+The Random Forest regression model performs better than the linear regression model. There are still many things that can be improved to obtain better predictions, such as:
+
+    Using a stricter range for outlier values (sales count and item prices).
+    Filling missing data with the mean or median of the product across all months instead of just 0.
+    Designing more features based on lag and moving window.
+    Creating an ensemble model using multiple different regression models.
+    Using the statsmodel library to extract more accurate trend and seasonality from time series data for use as features.
+    Employing a hyperparameter tuning algorithm. PySpark only supports K-Fold Cross Validation, which is not suitable for time series forecasting problems.
+    Using a recurrent neural network such as LSTM instead of converting this dataset into a regression problem.
